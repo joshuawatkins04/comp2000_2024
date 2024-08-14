@@ -1,4 +1,5 @@
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Point;
 
 public class Grid {
     
@@ -13,10 +14,10 @@ public class Grid {
     }
 
     public void paint(Graphics g, Point mousePos) {
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                if (cells[i][j].contains(mousePos)) {
-                    cells[i][j].paint(g, mousePos);
+        for (Cell[] cell : cells) {
+            for (Cell cell1 : cell) {
+                if (cell1.contains(mousePos)) {
+                    cell1.paint(g, mousePos);
                 }
             }
         }
