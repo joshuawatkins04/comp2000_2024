@@ -7,21 +7,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.Iterator;
 
 public class Grid implements Iterable<Cell> {
   Cell[][] cells = new Cell[20][20];
   
   public Grid() {
-    // for(int i=0; i<cells.length; i++) {
-    //   for(int j=0; j<cells[i].length; j++) {
-    //     cells[i][j] = new Cell(colToLabel(i), j, 10+Cell.size*i, 10+Cell.size*j);
-    //   }
-    // }
-    for (Cell cell : cells) {
-      
+    for(int i=0; i<cells.length; i++) {
+      for(int j=0; j<cells[i].length; j++) {
+        cells[i][j] = new Cell(colToLabel(i), j, 10+Cell.size*i, 10+Cell.size*j);
+      }
     }
-
   }
 
   private char colToLabel(int col) {
@@ -49,11 +44,9 @@ public class Grid implements Iterable<Cell> {
   }
 
   public Optional<Cell> cellAtPoint(Point p) {
-    for (Cell[] cell : cells) {
-      for (Cell cell1 : cell) {
-        if (cell1.contains(p)) {
-          return Optional.of(cell1);
-        }
+    for(Cell c: this) {
+      if(c.contains(p)) {
+        return Optional.of(c);
       }
     }
     return Optional.empty();
@@ -65,11 +58,9 @@ public class Grid implements Iterable<Cell> {
    * @param func The `Cell` to `void` function to apply at each spot.
    */
   public void doToEachCell(Consumer<Cell> func) {
-      for (Cell[] cell1 : cells) {
-          for (Cell cell : cell1) {
-              func.accept(cell);
-          }
-      }
+    for(Cell c: this) {
+      func.accept(c);
+    }
   }
 
   public List<Cell> getRadius(Cell from, int size) {
@@ -97,7 +88,7 @@ public class Grid implements Iterable<Cell> {
   }
 
   @Override
-  public Iterator<Cell> iterator() {
+  public CellIterator iterator() {
     return new CellIterator(cells);
   }
 }
