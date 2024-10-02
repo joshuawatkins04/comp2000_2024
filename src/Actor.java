@@ -1,25 +1,19 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
-import java.util.ArrayList;
 import java.util.List;
 
-class Actor {
-    
-    Cell location;
-    Color color;
-    List<Polygon> polygons;
+public abstract class Actor {
+  Color color;
+  Cell loc;
+  List<Polygon> display;
 
-    Actor(Cell location, Color color) {
-        this.location = location;
-        this.color = color;
-        polygons = new ArrayList<>();
+  public void paint(Graphics g) {
+    for(Polygon p: display) {
+      g.setColor(color);
+      g.fillPolygon(p);
+      g.setColor(Color.GRAY);
+      g.drawPolygon(p);
     }
-
-    void paint(Graphics g) {
-        g.setColor(this.color);
-        for (Polygon p : polygons) {
-            g.fillPolygon(p);
-        }
-    }
+  }
 }

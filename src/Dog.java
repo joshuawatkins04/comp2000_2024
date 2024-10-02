@@ -1,27 +1,27 @@
 import java.awt.Color;
 import java.awt.Polygon;
+import java.util.ArrayList;
 
-class Dog extends Actor{
-    
-    Dog(Cell cell) {
-        super(cell, Color.YELLOW);
-
-        Polygon ear1 = new Polygon();
-        ear1.addPoint(location.x + 5, location.y + 5);
-        ear1.addPoint(location.x + 15, location.y + 5);
-        ear1.addPoint(location.x + 5, location.y + 15);
-        Polygon ear2 = new Polygon();
-        ear2.addPoint(location.x + 20, location.y + 5);
-        ear2.addPoint(location.x + 30, location.y + 5);
-        ear2.addPoint(location.x + 30, location.y + 15);
-        Polygon face = new Polygon();
-        face.addPoint(location.x + 8, location.y + 7);
-        face.addPoint(location.x + 27, location.y + 7);
-        face.addPoint(location.x + 27, location.y + 25);
-        face.addPoint(location.x + 8, location.y + 25);
-    
-        polygons.add(ear1);
-        polygons.add(ear2);
-        polygons.add(face);
-    }
+public class Dog extends Actor {
+  public Dog(Cell inLoc) {
+    loc = inLoc;
+    color = Color.YELLOW;
+    display = new ArrayList<Polygon>();
+    Polygon ear1 = new Polygon();
+    ear1.addPoint(loc.x + 5, loc.y + 5);
+    ear1.addPoint(loc.x + 15, loc.y + 5);
+    ear1.addPoint(loc.x + 5, loc.y + 15);
+    Polygon ear2 = new Polygon();
+    ear2.addPoint(loc.x + 20, loc.y + 5);
+    ear2.addPoint(loc.x + 30, loc.y + 5);
+    ear2.addPoint(loc.x + 30, loc.y + 15);
+    Polygon face = new Polygon();
+    face.addPoint(loc.x + 8, loc.y + 7);
+    face.addPoint(loc.x + 27, loc.y + 7);
+    face.addPoint(loc.x + 27, loc.y + 25);
+    face.addPoint(loc.x + 8, loc.y + 25);
+    display.add(face);
+    display.add(ear1);
+    display.add(ear2);
+  }
 }
