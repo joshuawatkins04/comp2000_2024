@@ -4,15 +4,12 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import javax.naming.ldap.StartTlsRequest;
 
 public class Stage {
   Grid grid;
   List<Actor> actors;
   List<Cell> cellOverlay;
   Optional<Actor> actorInAction;
-  MoveStrategy strat;
 
   enum State {ChoosingActor, SelectingNewLocation, BotMoving}
   State currentState;
@@ -31,13 +28,9 @@ public class Stage {
       for(Actor a: actors) {
         if(!a.isHuman()) {
           List<Cell> possibleLocs = getClearRadius(a.loc, a.moves);
-          // int moveBotChooses = (new Random()).nextInt(possibleLocs.size());
-          // a.setLocation(possibleLocs.get(moveBotChooses));
-          //a.setLocation(new RandomMove().moveStrategy(possibleLocs));
-          //a.setLocation(strat.moveStrategy(possibleLocs));
-          Cell next = a.strat.chooseNextLoc(possibleLocs);
-          a.setLocation(next);
-        } 
+          Cell nextLoc = a.strat.chooseNextLoc(possibleLocs);
+          a.setLocation(nextLoc);
+        }
       }
       currentState = State.ChoosingActor;
       for(Actor a: actors) {
@@ -81,6 +74,8 @@ public class Stage {
       g.drawString(Character.toString(a.loc.col) + Integer.toString(a.loc.row), valueIndent, yLoc+vTab);
       g.drawString("artificiality:", labelIndent, yLoc+2*vTab);
       g.drawString(a.isHuman() ? "Human" : "Bot", valueIndent, yLoc+2*vTab);
+      g.drawString("strategy:", labelIndent, yLoc+3*vTab);
+      g.drawString(a.strat.toString(), valueIndent, yLoc+3*vTab);
     }    
   }
 
