@@ -1,8 +1,6 @@
 import java.util.List;
 
 public class LeftMostMove implements MoveStrategy {
-  
-  // USE STREAM TO CHANGE THIS TO ONE LINE
   @Override
   public Cell chooseNextLoc(List<Cell> possibleLocs) {
     Cell currLM = possibleLocs.get(0);

@@ -2,9 +2,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 
 public abstract class Actor {
   Color color;
@@ -13,8 +10,7 @@ public abstract class Actor {
   boolean humanPlayer;
   int moves;
   int turns;
-  // MoveStrategy strat;
-  Function<List<Cell>, Cell> strat;
+  MoveStrategy strat;
 
   protected Actor(Cell inLoc, Color inColor, Boolean isHuman, int inMoves) {
     setLocation(inLoc);
@@ -43,17 +39,9 @@ public abstract class Actor {
   public void setLocation(Cell inLoc) {
     loc = inLoc;
     if(loc.row % 2 == 0) {
-      strat = pLocs -> pLocs.get((new Random()).nextInt(pLocs.size())); 
+      strat = new RandomMove();
     } else {
-      strat = pLocs -> {
-      Cell currLM = pLocs.get(0);
-      for(Cell c: pLocs) {
-        if(c.leftOfComparison(currLM) < 0) {
-          currLM = c;
-        }
-      }
-      return currLM;
-      };
+      strat = new LeftMostMove();
     }
     setPoly();
   }
